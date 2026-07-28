@@ -1,0 +1,63 @@
+name: Build desktop downloads
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+concurrency:
+  group: desktop-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: windows-latest
+            args: "--bundles nsis"
+          - platform: macos-latest
+            args: "--target universal-apple-darwin --bundles dmg,app"
+
+    runs-on: ${{ matrix.platform }}
+    defaults:
+      run:
+        working-directory: crm-app
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: crm-app/package-lock.json
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build and upload desktop installers
+        uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: crm-app
+          tagName: v__VERSION__
+          releaseName: PureCRM v__VERSION__
+          releaseBody: |
+            Download the Windows installer or universal macOS disk image below.
+
+            PureCRM is unsigned. Windows SmartScreen or macOS Gatekeeper may
+            ask for confirmation before the first launch.
+          releaseDraft: false
+          prerelease: false
+          args: ${{ matrix.args }}

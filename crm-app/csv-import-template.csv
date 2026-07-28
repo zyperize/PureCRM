@@ -1,0 +1,2 @@
+business_name,phone,email,website,street_address,city,state,zipcode,latitude,longitude,business_type,description,manager_name,category,lead_source,tags
+"Example Company","555-0100","hello@example.com","https://example.com","100 Main Street","Austin","TX","78701",30.2672,-97.7431,"Professional Services","Replace this row with your own lead","Alex Morgan","prospect","manual","priority,follow_up"

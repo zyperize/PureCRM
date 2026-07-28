@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color Palette */
+  --color-charcoal-950: #0a0a0a;
+  --color-charcoal-900: #121212;
+  --color-charcoal-800: #1E1E1E;
+  --color-charcoal-700: #2D2D2D;
+  --color-charcoal-600: #36454F;
+  --color-charcoal-500: #4A5568;
+
+  --color-gold-100: #F9F5D7;
+  --color-gold-200: #F3E5AB;
+  /* Champagne Light */
+  --color-gold-300: #E6C86E;
+  --color-gold-400: #D4AF37;
+  /* Classic Gold */
+  --color-gold-500: #C5A028;
+  --color-gold-600: #A3841F;
+  --color-gold-700: #826818;
+
+  /* Typography */
+  --font-sans: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-display: 'Outfit', system-ui, sans-serif;
+}
+
+[data-theme="light"] {
+  --color-charcoal-950: #f8fafc;
+  --color-charcoal-900: #f1f5f9;
+  --color-charcoal-800: #ffffff;
+  --color-charcoal-700: #e2e8f0;
+  --color-charcoal-600: #cbd5e1;
+  --color-charcoal-500: #94a3b8;
+  --color-white: #111827;
+  --color-gray-300: #374151;
+  --color-gray-400: #4b5563;
+  --color-gray-500: #64748b;
+  --color-gray-600: #94a3b8;
+}
+
+/* Global Styles */
+@layer base {
+  html {
+    background-color: var(--color-charcoal-900);
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+    color: var(--color-white);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-charcoal-900);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-charcoal-700);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-charcoal-600);
+  }
+}
+
+/* Component Utilities */
+@layer components {
+
+  .setup-icon {
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold-400/15 text-gold-300;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-charcoal-800 border border-white/5 rounded-xl shadow-lg p-6;
+  }
+
+  /* Glassmorphism (Outreach dashboard) — frosted glass over the charcoal mesh */
+  .glass-card {
+    @apply relative rounded-2xl p-6 border border-white/10 bg-white/5;
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08),
+      0 20px 40px -20px rgba(0, 0, 0, 0.6);
+  }
+
+  .glass-tile {
+    @apply relative rounded-2xl p-5 border border-white/10 bg-white/[0.04] overflow-hidden;
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.07);
+    transition: transform 700ms cubic-bezier(0.32, 0.72, 0, 1), border-color 400ms ease;
+  }
+
+  .glass-tile:hover {
+    transform: translateY(-3px);
+    @apply border-gold-400/30;
+  }
+
+  /* gold hairline accent strip used on glass tiles */
+  .gold-rule {
+    @apply absolute top-0 left-0 right-0 h-px;
+    background: linear-gradient(90deg, transparent, var(--color-gold-400), transparent);
+    opacity: 0.5;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-gradient-to-r from-gold-300 to-gold-500 text-charcoal-900 font-bold py-2.5 px-5 rounded-lg hover:from-gold-200 hover:to-gold-400 transition-all duration-200 shadow-md transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer border-none;
+    color: #0a0a0a;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border border-white/20 text-white font-medium py-2.5 px-5 rounded-lg hover:bg-white/5 hover:border-gold-300/50 hover:text-gold-200 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer;
+  }
+
+  .btn-danger {
+    @apply bg-red-500/10 border border-red-500/20 text-red-400 font-medium py-2 px-4 rounded-lg hover:bg-red-500/20 hover:text-red-300 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer;
+  }
+
+  .btn-icon {
+    @apply p-2 rounded-lg text-gray-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer;
+  }
+
+  /* Inputs */
+  .input-field {
+    @apply bg-charcoal-900 border border-white/10 rounded-lg px-4 py-2.5 text-white w-full focus:outline-none focus:border-gold-400/50 focus:ring-1 focus:ring-gold-400/50 transition-all placeholder-gray-600;
+  }
+
+  .label-text {
+    @apply text-sm font-medium text-gray-400 mb-1.5 block;
+  }
+
+  /* Badges */
+  .badge {
+    @apply px-2.5 py-0.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5;
+  }
+
+  .badge-gold {
+    @apply bg-gold-400/10 text-gold-300 border border-gold-400/20;
+  }
+
+  /* Stage Badges */
+  .stage-badge {
+    @apply px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider;
+  }
+
+  .stage-badge.new {
+    @apply bg-blue-500/10 text-blue-400 border border-blue-500/20;
+  }
+
+  .stage-badge.contacted {
+    @apply bg-yellow-500/10 text-yellow-400 border border-yellow-500/20;
+  }
+
+  .stage-badge.interested {
+    @apply bg-orange-500/10 text-orange-400 border border-orange-500/20;
+  }
+
+  .stage-badge.qualified {
+    @apply bg-emerald-500/10 text-emerald-400 border border-emerald-500/20;
+  }
+
+  .stage-badge.won {
+    @apply bg-purple-500/10 text-purple-400 border border-purple-500/20;
+  }
+
+  .stage-badge.lost {
+    @apply bg-gray-700 text-gray-400 border border-gray-600;
+  }
+}
