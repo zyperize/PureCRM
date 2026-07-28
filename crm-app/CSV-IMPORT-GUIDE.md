@@ -26,7 +26,8 @@ punctuation.
 
 ## Import steps
 
-1. Open **Import / Export**.
+1. Open **Import Data** in the sidebar. You can also use
+   **Settings → Data & Workspace → Import & Export**.
 2. Choose an Excel or CSV file.
 3. Review the matched preview.
 4. Click **Import**.
@@ -38,5 +39,5 @@ work without editing.
 ## Export
 
 Use **Export All Leads** to download CRM leads as CSV. For a complete portable
-copy including notes, tasks, and settings, use **Settings → Workspace →
-Download backup**.
+copy including notes, tasks, and settings, use **Settings → Data & Workspace →
+Workspace & Database → Download backup**.

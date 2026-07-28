@@ -2,6 +2,22 @@
 
 All notable PureCRM changes are documented here.
 
+## [1.2.1] - 2026-07-28
+
+### Added
+
+- Permanent Import Data navigation and Import & Export access in Settings
+- Clear local-database and optional Team Database choices
+
+### Fixed
+
+- First-run setup now continues directly to Excel/CSV import
+- Sidebar hover labels no longer cover labels that are already visible
+- Selected navigation and controls maintain readable contrast across themes and
+  accent colors
+- Collapsed navigation retains accessible names and correctly positioned
+  tooltips
+
 ## [1.2.0] - 2026-07-28
 
 ### Added

@@ -34,7 +34,12 @@ export default function SetupWizard() {
 
     try {
       saveWorkspaceConfig({ ...form, storageMode: 'local' })
-      window.location.reload()
+      if ('__TAURI_INTERNALS__' in window) {
+        window.location.hash = '/upload-data'
+        window.location.reload()
+      } else {
+        window.location.assign('/upload-data')
+      }
     } catch (saveError) {
       setError(saveError.message)
       setIsSaving(false)
@@ -74,7 +79,7 @@ export default function SetupWizard() {
                 <span className="setup-icon"><CheckCircle2 size={18} /></span>
                 <div>
                   <p className="font-semibold text-white">Cloud sync is optional</p>
-                  <p className="mt-1 text-sm text-gray-500">Connect Supabase later only if a team needs shared access.</p>
+                  <p className="mt-1 text-sm text-gray-500">Connect a team database later in Settings only if shared access is needed.</p>
                 </div>
               </div>
             </div>
@@ -128,7 +133,7 @@ export default function SetupWizard() {
                       aria-pressed={form.appearance === appearance}
                       className={`rounded-lg border px-3 py-2 text-sm capitalize transition ${
                         form.appearance === appearance
-                          ? 'border-gold-400 bg-gold-400/10 text-gold-200'
+                          ? 'selection-accent'
                           : 'border-white/10 text-gray-400 hover:border-white/25'
                       }`}
                     >

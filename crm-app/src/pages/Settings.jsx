@@ -1,12 +1,18 @@
 import { Link } from 'react-router';
-import { Phone, CheckSquare, ClipboardCheck, User, Building2, ChevronRight } from 'lucide-react';
+import { Phone, CheckSquare, ClipboardCheck, User, Building2, ChevronRight, FileSpreadsheet } from 'lucide-react';
 
 export default function Settings() {
   const sections = [
     {
+      title: 'Data & Workspace',
+      items: [
+        { icon: FileSpreadsheet, label: 'Import & Export', path: '/upload-data', desc: 'Upload Excel or CSV leads and export CRM data' },
+        { icon: Building2, label: 'Workspace & Database', path: '/settings/workspace', desc: 'Business details, appearance, local storage, and Team sync' },
+      ]
+    },
+    {
       title: 'CRM Configuration',
       items: [
-        { icon: Building2, label: 'Workspace Setup', path: '/settings/workspace', desc: 'Business name and database connection' },
         { icon: Phone, label: 'Calling Scripts', path: '/settings/scripts', desc: 'Manage scripts for dialer' },
         { icon: ClipboardCheck, label: 'Qualification Questions', path: '/qualification', desc: 'Configure customized lead questions' },
         { icon: CheckSquare, label: 'Task Templates', path: '/settings/tasks', desc: 'Set up automated task lists' }

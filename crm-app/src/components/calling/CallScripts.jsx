@@ -111,9 +111,10 @@ To confirm, should I send it to [EMAIL], and is [DATE] still a good follow-up da
                                 setActiveScriptId(script.id);
                                 setSelectedObjection(null); // Reset objection view
                             }}
+                            aria-pressed={activeScript?.id === script.id}
                             className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition border
                 ${activeScript?.id === script.id
-                                    ? 'bg-gold-500/20 text-gold-300 border-gold-500/40 shadow-lg shadow-gold-500/5'
+                                    ? 'selection-accent shadow-lg shadow-gold-500/5'
                                     : 'bg-charcoal-800 text-gray-400 border-white/5 hover:bg-white/5 hover:text-white'
                                 }`}
                         >
@@ -134,9 +135,10 @@ To confirm, should I send it to [EMAIL], and is [DATE] still a good follow-up da
                             <button
                                 key={obj.id}
                                 onClick={() => setSelectedObjection(isSelected ? null : obj)}
+                                aria-pressed={isSelected}
                                 className={`px-2 py-2.5 rounded-xl text-xs font-semibold border flex flex-col items-center justify-center gap-1.5 transition-all
                   ${isSelected
-                                    ? 'bg-gold-500/20 text-gold-300 border-gold-500/50 scale-95'
+                                    ? 'selection-accent scale-95'
                                     : `bg-charcoal-900 border-white/5 ${obj.color}`
                                   }`}
                             >

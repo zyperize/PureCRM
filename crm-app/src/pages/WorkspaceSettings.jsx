@@ -5,6 +5,7 @@ import {
   Cloud,
   Download,
   HardDrive,
+  FileSpreadsheet,
   Palette,
   RotateCcw,
   Save,
@@ -94,9 +95,24 @@ export default function WorkspaceSettings() {
       <form onSubmit={handleSave} className="space-y-6">
         <section className="card space-y-5">
           <div>
-            <h1 className="text-2xl font-bold">Workspace</h1>
+            <h1 className="text-2xl font-bold">Workspace & Database</h1>
             <p className="mt-1 text-sm text-gray-400">Brand the CRM for this business. Only the workspace name is required.</p>
           </div>
+          <Link
+            to="/upload-data"
+            className="flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-charcoal-900 p-4 text-white transition-colors hover:border-gold-400/50"
+          >
+            <span className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold-400/10 text-gold-600">
+                <FileSpreadsheet size={20} />
+              </span>
+              <span>
+                <strong className="block">Import Excel or CSV leads</strong>
+                <span className="mt-1 block text-xs text-gray-400">Open the permanent Import & Export workspace.</span>
+              </span>
+            </span>
+            <Upload size={18} className="text-gray-500" />
+          </Link>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="sm:col-span-2">
               <span className="label-text">Business or workspace name</span>
@@ -128,9 +144,10 @@ export default function WorkspaceSettings() {
                   onClick={() => update('appearance', appearance)}
                   className={`rounded-lg border px-3 py-2 text-sm capitalize ${
                     form.appearance === appearance
-                      ? 'border-gold-400 bg-gold-400/10 text-gold-300'
+                      ? 'selection-accent'
                       : 'border-white/10 text-gray-400'
                   }`}
+                  aria-pressed={form.appearance === appearance}
                 >
                   {appearance}
                 </button>
@@ -162,30 +179,32 @@ export default function WorkspaceSettings() {
           <div>
             <h2 className="flex items-center gap-2 text-lg font-semibold">
               {form.storageMode === 'supabase' ? <Cloud size={19} /> : <HardDrive size={19} />}
-              Data storage
+              Database & storage
             </h2>
             <p className="mt-1 text-sm text-gray-400">
-              Local mode needs no account. Team sync is optional for sharing one database across devices.
+              Start with the built-in local database. Connect Supabase only when several users need one shared database.
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             <button
               type="button"
               onClick={() => update('storageMode', 'local')}
-              className={`rounded-xl border p-4 text-left ${form.storageMode !== 'supabase' ? 'border-gold-400 bg-gold-400/10' : 'border-white/10'}`}
+              aria-pressed={form.storageMode !== 'supabase'}
+              className={`rounded-xl border p-4 text-left ${form.storageMode !== 'supabase' ? 'selection-accent' : 'border-white/10'}`}
             >
               <HardDrive size={21} />
-              <strong className="mt-2 block">Local on this device</strong>
+              <strong className="mt-2 block">Local database (recommended)</strong>
               <span className="mt-1 block text-xs text-gray-400">No login, server, or monthly service.</span>
             </button>
             <button
               type="button"
               onClick={() => update('storageMode', 'supabase')}
-              className={`rounded-xl border p-4 text-left ${form.storageMode === 'supabase' ? 'border-gold-400 bg-gold-400/10' : 'border-white/10'}`}
+              aria-pressed={form.storageMode === 'supabase'}
+              className={`rounded-xl border p-4 text-left ${form.storageMode === 'supabase' ? 'selection-accent' : 'border-white/10'}`}
             >
               <Cloud size={21} />
-              <strong className="mt-2 block">Team sync</strong>
-              <span className="mt-1 block text-xs text-gray-400">Optional Supabase connection for multiple users.</span>
+              <strong className="mt-2 block">Connect Team Database</strong>
+              <span className="mt-1 block text-xs text-gray-400">Optional Supabase connection for shared multi-user data.</span>
             </button>
           </div>
 

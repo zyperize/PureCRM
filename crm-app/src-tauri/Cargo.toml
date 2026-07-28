@@ -1,6 +1,6 @@
 [package]
 name = "purecrm"
-version = "1.2.0"
+version = "1.2.1"
 description = "A local-first CRM for small businesses"
 authors = ["PureCRM"]
 edition = "2021"

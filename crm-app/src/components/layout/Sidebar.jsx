@@ -14,7 +14,8 @@ import {
     Map as MapIcon,
     Bot,
     ShoppingBag,
-    Copy
+    Copy,
+    FileSpreadsheet
 } from 'lucide-react';
 
 export default function Sidebar({ isOpen, toggleSidebar }) {
@@ -29,6 +30,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
     const navItems = [
         { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
         { icon: Users, label: 'Leads', path: '/leads' },
+        { icon: FileSpreadsheet, label: 'Import Data', path: '/upload-data' },
         { icon: ShoppingBag, label: 'Customers', path: '/customers' },
         { icon: Copy, label: 'Duplicates', path: '/duplicates' },
         { icon: MapIcon, label: 'Map View', path: '/map' },
@@ -57,6 +59,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
 
                 <button
                     onClick={toggleSidebar}
+                    aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
                     className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors absolute -right-3 top-6 bg-charcoal-800 border border-white/10 shadow-lg"
                 >
                     {isOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
@@ -64,15 +67,19 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
             </div>
 
             <nav className="p-3 space-y-1 mt-4">
-                {navItems.map((item) => (
+                {navItems.map((item) => {
+                    const tooltipId = `sidebar-tooltip-${item.path === '/' ? 'dashboard' : item.path.slice(1).replaceAll('/', '-')}`;
+
+                    return (
                     <NavLink
                         key={item.path}
                         to={item.path}
+                        aria-label={item.label}
+                        aria-describedby={tooltipId}
                         className={({ isActive }) => `
-              flex items-center px-3 py-3 rounded-lg transition-all duration-200 group relative
-              ${isActive
-                                ? 'bg-gradient-to-r from-gold-500/20 to-transparent text-gold-300 border-l-2 border-gold-500'
-                                : 'text-gray-400 hover:text-white hover:bg-white/5'}
+              group relative flex items-center rounded-lg px-3 py-3 transition-all duration-200
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400/60
+              ${isActive ? 'selection-accent sidebar-nav-active' : 'text-gray-400 hover:bg-white/5 hover:text-white'}
             `}
                     >
                         <item.icon size={22} className={isOpen ? 'lg:mr-3 mx-auto lg:mx-0' : 'mx-auto'} />
@@ -81,11 +88,16 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
                             <span className="hidden lg:inline font-medium whitespace-nowrap">{item.label}</span>
                         )}
 
-                        <div className="absolute left-14 bg-charcoal-800 text-white text-xs px-2 py-1 rounded border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 whitespace-nowrap">
+                        <span
+                            id={tooltipId}
+                            role="tooltip"
+                            className={`pointer-events-none invisible absolute left-full top-1/2 z-50 ml-2 -translate-y-1/2 whitespace-nowrap rounded border border-white/10 bg-charcoal-800 px-2 py-1 text-xs text-white opacity-0 shadow-lg transition-opacity group-hover:visible group-hover:opacity-100 ${isOpen ? 'lg:hidden' : ''}`}
+                        >
                             {item.label}
-                        </div>
+                        </span>
                     </NavLink>
-                ))}
+                    );
+                })}
             </nav>
 
             <div className="absolute bottom-0 left-0 w-full p-4 border-t border-white/5">
