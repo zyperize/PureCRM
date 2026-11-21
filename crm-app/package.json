@@ -27,7 +27,7 @@
     "leaflet.markercluster": "^1.5.3",
     "lucide-react": "^0.562.0",
     "papaparse": "^5.5.3",
-    "posthog-js": "^1.404.1",
+    "posthog-js": "^1.407.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hot-toast": "^2.6.0",
